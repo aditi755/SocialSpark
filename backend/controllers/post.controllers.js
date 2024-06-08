@@ -1,62 +1,7 @@
-// import User from "../models/user.model.js";
-
-// export const createPost = async (req,res) => {
-//     try{
-//         const {text} = req.body;
-//         let {img} = req.body;
-//         const userId = req.user._id.toString();
-//         console.log(userId);
-
-//         const user = await User.findById(userId);
-//         if(!user) return res.status(404).json({
-//             message: "User not found"
-//         })
-//         if(!text && !img){
-//             return res.status(400).json ({
-//                 error: "Post must have text or image "
-//             })
-//         }
-
-//         if(img){
-//             const uploadedResponse = await cloudinary.uploader.upload(img);
-//             img = uploadedResponse.secure_url;
-//         }
-
-//         const newPost = new Post ({
-//             user: userId,
-//             text, 
-//             img
-//         })
-
-//         await newPost.save();
-//         res.status(200).json(newPost);
-
-//     } catch(error){
-//         res.status(500).json({
-//             error: "Internal server error"
-//         });
-//         console.log(error)
-//     }
-// }
-
-// export const deletePost = async (req,res) => {
-  
-// }
-
-
-// export const likeUnlikePost = async (req,res) => {
-  
-// }
-
-
-// export const commentOnPost = async (req,res) => {
-  
-// }
-
-
 import { protectRoute } from "../middleware/protectedRoute.js";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
+import Notification from "../models/notification.model.js";
 import { v2 as cloudinary } from "cloudinary";
 
 export const createPost = async (req, res) => {
@@ -171,12 +116,12 @@ export const likeUnlikePost = async (req, res) => {
 			await User.updateOne({ _id: userId }, { $push: { likedPosts: postId } });
 			await post.save();
 
-			// const notification = new Notification({
-			// 	from: userId,
-			// 	to: post.user,
-			// 	type: "like",
-			// });
-			// await notification.save();
+			const notification = new Notification({
+				from: userId,
+				to: post.user,
+				type: "like",
+			});
+			await notification.save();
 
 			const updatedLikes = post.likes;
 			res.status(200).json(updatedLikes);
@@ -218,6 +163,7 @@ export const getLikedPosts = async (req, res) => {
 		const user = await User.findById(userId);
 		if (!user) return res.status(404).json({ error: "User not found" });
 
+		console.log("user-likedPosts", user.likedPosts)
 		const likedPosts = await Post.find({ _id: { $in: user.likedPosts } })
 			.populate({
 				path: "user",
@@ -245,7 +191,7 @@ export const getFollowingPosts = async (req, res) => {
 
 		const feedPosts = await Post.find({ user: { $in: following } })
 			.sort({ createdAt: -1 })
-			.populate({
+			.populate({         //to retrieve the details of user and comments excluding password
 				path: "user",
 				select: "-password",
 			})
@@ -287,5 +233,4 @@ export const getUserPosts = async (req, res) => {
 };
 
 
-// Issue in protectRoute that is token is not authorized/ frontedn is not sneding the token
 
