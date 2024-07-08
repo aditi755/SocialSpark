@@ -8,16 +8,16 @@ import connectMongoDB from "./db/connectMongoDB.js";
 import cookieParser from "cookie-parser"
 import { v2 as cloudinary } from "cloudinary"
 import path from "path"
-import { fileURLToPath } from 'url';
-//dotenv.config()
+// import { fileURLToPath } from 'url';
+dotenv.config()
 
-// Get the directory name of the current module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// // Get the directory name of the current module
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 
-// Load environment variables from .env file in the root directory
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
+// // Load environment variables from .env file in the root directory
+// dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 console.log('MongoDB URI:', process.env.MONGO_URI);
 
@@ -29,8 +29,7 @@ cloudinary.config({
 
 const app = express()
 const PORT = process.env.PORT || 5000;
-//const _
-_dirname = path.resolve();
+const __dirname = path.resolve();
 
 app.use(express.json({limit: "5mb"})) //to parse req.body middleware function that runs everytime at req and res dos attack
 app.use(express.urlencoded({ extended: true}))
