@@ -8,9 +8,7 @@ import connectMongoDB from "./db/connectMongoDB.js";
 import cookieParser from "cookie-parser"
 import { v2 as cloudinary } from "cloudinary"
 import path from "path"
-dotenv.config({
-    path: `.env.${process.env.NODE_ENV || 'development'}`
-  })
+dotenv.config()
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -41,15 +39,6 @@ if (process.env.NODE_ENV === "production") {
 
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`)
-    // connectMongoDB()
-    connectMongoDB()
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-        });
-    })
-    .catch((error) => {
-        console.error('Error in MongoDB connection:', error);
-        process.exit(1); // Exit process with failure
-    });
+     connectMongoDB()
+    
 })
