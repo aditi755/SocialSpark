@@ -8,7 +8,12 @@ import connectMongoDB from "./db/connectMongoDB.js";
 import cookieParser from "cookie-parser"
 import { v2 as cloudinary } from "cloudinary"
 import path from "path"
-dotenv.config()
+//dotenv.config()
+
+// Load environment variables from .env file in the root directory
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+
+console.log('MongoDB URI:', process.env.MONGO_URI);
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
