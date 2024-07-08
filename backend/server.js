@@ -41,5 +41,15 @@ if (process.env.NODE_ENV === "production") {
 
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`)
+    // connectMongoDB()
     connectMongoDB()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`Server is running on port ${PORT}`);
+        });
+    })
+    .catch((error) => {
+        console.error('Error in MongoDB connection:', error);
+        process.exit(1); // Exit process with failure
+    });
 })
