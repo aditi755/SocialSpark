@@ -8,11 +8,20 @@ import { Link } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import LoadingSpinner from "./LoadingSpinner";
+import { formatPostDate } from "../../utils/date";
 const Post = ({ post }) => {
 	const [comment, setComment] = useState("");
 	const {data:authUser} = useQuery({queryKey: ["authUser"] });
    const queryClient = useQueryClient();
+   const postOwner = post.user;
+	// const isLiked = true;
+	const isLiked = post.likes.includes(authUser._id);
 
+	const isMyPost = authUser._id === post.user._id;
+    console.log("ismypost", isMyPost)
+	const formattedDate = formatPostDate(post.createdAt);
+
+	// const isCommenting = true;
    const {mutate: likePost, isPending:isLiking} = useMutation({
 	mutationFn: async () => {
 		try{
@@ -27,21 +36,13 @@ const Post = ({ post }) => {
 		} catch(err) {
 			throw new Error(err.message);
 		}
-	}, 
+	},  
 	onSuccess : (updatedLikes) => {
 		toast.success('Post liked successfully');
 		//it will reftch all posts no best ui 
 		//queryClient.invalidateQueries({queryKey: ["posts"]});
 
 		//it will just update the cache
-		// queryClient.setQueriesData(['posts'], (oldData) => {
-		// 	return oldData.map((p) => {
-		// 		if(p._id === post._id){
-		// 			return {...p, likes: updatedLikes}
-		// 		}
-		// 		return p;
-		// 	});
-		// });
 		queryClient.setQueryData(["posts"], (oldData) => {
 			return oldData.map((p) => {
 				if (p._id === post._id) {
@@ -72,23 +73,48 @@ const Post = ({ post }) => {
            queryClient.invalidateQueries({queryKey: ["posts"]})
 		}
 	})
-	const postOwner = post.user;
-	// const isLiked = true;
-	const isLiked = post.likes.includes(authUser._id);
 
-	const isMyPost = authUser._id === post.user._id;
-    console.log("ismypost", isMyPost)
-	const formattedDate = "1h";
+	const { mutate: commentPost, isPending: isCommenting } = useMutation({
+		mutationFn: async () => {
+			try {
+				const res = await fetch(`/api/posts/comment/${post._id}`, {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({ text: comment }),
+				});
+				const data = await res.json();
 
-	const isCommenting = true;
+				if (!res.ok) {
+					throw new Error(data.error || "Something went wrong");
+				}
+				return data;
+			} catch (error) {
+				throw new Error(error);
+			}
+		},
+		onSuccess: () => {
+			toast.success("Comment posted successfully");
+			setComment("");
+			queryClient.invalidateQueries({ queryKey: ["posts"] });
+		},
+		onError: (error) => {
+			toast.error(error.message);
+		},
+	});
+
+	
 
 	const handleDeletePost = () => {
 		deletePost();
 	};
-
 	const handlePostComment = (e) => {
 		e.preventDefault();
+		if (isCommenting) return;
+		commentPost();
 	};
+
 
 	const handleLikePost = () => {
 		if(isLiking) return;
