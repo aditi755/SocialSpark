@@ -19,12 +19,20 @@ dotenv.config()
 // // Load environment variables from .env file in the root directory
 // dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-console.log('MongoDB URI:', process.env.MONGO_URI);
+
+// Mongo_URI=mongodb+srv://awdhesh1700:CAI3kJPN14hcXxFO@cluster0.q5sfvtu.mongodb.net/twitter-db?retryWrites=true&w=majority&appName=Cluster0
+// PORT=5000
+// JWT_SECRET=iA8JrWwIn3bKVo5dsDGBtDGWsoN67YXN/VDwum6p+mI= 
+// NODE_ENV=development
+// CLOUDINARY_CLOUD_NAME=dtwwibrkc
+// CLOUDINARY_API_KEY=817395265893634
+// CLOUDINARY_API_SECRET=sgcmfrXGaeRygCmYTgD1G0bvGyQ
+//console.log('MongoDB URI:',mongodb+srv://awdhesh1700:CAI3kJPN14hcXxFO@cluster0.q5sfvtu.mongodb.net/twitter-db?retryWrites=true&w=majority&appName=Cluster0);
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: dtwwibrkc,
+    api_key: 817395265893634 ,
+    api_secret: sgcmfrXGaeRygCmYTgD1G0bvGyQ,
 })
 
 const app = express()
