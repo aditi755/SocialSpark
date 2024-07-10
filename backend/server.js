@@ -42,6 +42,11 @@ const __dirname = path.resolve();
 app.use(express.json({limit: "5mb"})) //to parse req.body middleware function that runs everytime at req and res dos attack
 app.use(express.urlencoded({ extended: true}))
 app.use(cookieParser());
+
+app.get('/', (req, res) => {
+    res.send('Hello World');
+  });
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
