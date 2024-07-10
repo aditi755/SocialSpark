@@ -13,10 +13,12 @@
       }
     ],
     "functions": {
-      "api/auth/**": {
+      "/api/**": {
         "memory": 1024,
         "maxDuration": 20
       }
     }
   }
+
+  
   
