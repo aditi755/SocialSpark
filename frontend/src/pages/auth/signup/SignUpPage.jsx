@@ -27,15 +27,15 @@ const SignUpPage = () => {
 					}, 
 					body: JSON.stringify({email, username, fullName, password})
 				});
-				 // Log the raw response to see what's coming back
-				 const text = await res.text();
-				 console.log("Server response:", text);
+				// Log the raw response to see what's coming back
+				const text = await res.text();
+				console.log("Server response:", text);
 				const data = await res.json();
 				
 				if(!res.ok) throw new Error(data.error || "something went wrong");
 				
 				if(data.error) throw new Error(data.error);
-				console.log(data);
+				
 				return data;
 			} catch(error){
                console.error(error);
