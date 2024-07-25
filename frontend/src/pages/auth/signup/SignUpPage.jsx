@@ -28,17 +28,21 @@ const SignUpPage = () => {
 					body: JSON.stringify({email, username, fullName, password})
 				});
 
-			// Clone the response to log its text
-		    const clonedResponse = res.clone();
+		    // Clone the response to log its text
+			const clonedResponse = res.clone();
 			const text = await clonedResponse.text();
 			console.log("Server response:", text);
-		   
+	  
+			// Check if the response status is not ok
+			if (!res.ok) {
+			  throw new Error(text || "Something went wrong");
+			}
+	  
 			// Try to parse the original response as JSON
-		     const data = await res.json();
-		   
-			if (!res.ok) throw new Error(data.error || "something went wrong");
+			const data = await res.json();
+	  
 			if (data.error) throw new Error(data.error);
-		   
+	  
 			return data;
 				
 				
