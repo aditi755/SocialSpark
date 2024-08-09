@@ -20,7 +20,8 @@ const SignUpPage = () => {
 	const {isError, mutate, isPending, error } = useMutation({
 		mutationFn: async ({email, username, fullName, password}) => {
 			try{
-				const res = await fetch("/api/auth/signup", {
+				//https://twitter-clone-liard-three.vercel.app/api/auth/me
+				const res = await fetch("https://twitter-clone-liard-three.vercel.app/api/auth/signup", {  //login the route, /api/api -> 1-> port be 2 => api/auth  -> http:localhost:5000/api/auth/signup  consolelog it 
 					method: "POST", 
 					headers: {
 						"Content-Type" : "application/json"
