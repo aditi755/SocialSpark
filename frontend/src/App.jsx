@@ -15,15 +15,15 @@ import LoadingSpinner from './components/common/LoadingSpinner'
 import { Navigate } from 'react-router-dom'
 import axios from 'axios';
 
-axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || 'https://twitter-clone-2-khaki.vercel.app/api';
-axios.defaults.withCredentials = true;
+// axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL || 'https://twitter-clone-2-khaki.vercel.app/api';
+//axios.defaults.withCredentials = true;
 function App() {
   const {data:authUser, isLoading, error, isError} = useQuery({
     queryKey: ['authUser'],
     queryFn: async () => {
       try{
         console.log(axios.defaults.baseURL);
-        const res = await fetch("/auth/me"); //change
+        const res = await fetch("/api/auth/me"); //change
         console.log(axios.defaults.baseURL);
         const data = await res.json();
         if(data.error) return null;  //fix

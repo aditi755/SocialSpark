@@ -20,17 +20,17 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
-//chnage preflight
-app.options('*', cors());
+ //chnage preflight
+// app.options('*', cors());
 
 
 // CORS configuration
-app.use(cors({
-  // origin: ["https://twitter-clone-frontend-roan.vercel.app"],
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+// app.use(cors({
+//   // origin: ["https://twitter-clone-frontend-roan.vercel.app"],
+//   origin: "*",
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   credentials: true
+// }));
 
 // Cloudinary configuration
 cloudinary.config({
@@ -45,14 +45,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Routes
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello World');
+// });
 
 app.use("/api/auth", authRoutes);  //2 api needed or meta.env set in frontend 
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/notifications", notificationRoutes);
+
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+	app.get("*", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+	});
+}
 
 // Start server
 app.listen(PORT, () => {
