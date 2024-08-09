@@ -1,6 +1,8 @@
-## Twitter Clone
+## SocialSpark
 
-This project is a Twitter clone built using the MERN stack (MongoDB, Express, React, Node.js) and JWT (JSON Web Tokens) for authentication. The application allows users to follow other users, like posts, receive notifications, post pictures, create text posts, and interact with other users' posts.
+This project is a Twitter like social media webapp built using the MERN stack (MongoDB, Express, React, Node.js) and JWT (JSON Web Tokens) for authentication. The application allows users to follow other users, like posts, receive notifications, post pictures, create text posts, and interact with other users' posts.
+
+Deployed project link: [SocialSpark](https://twitter-clone-xx2o.onrender.com/)
 
 ## Features
 
