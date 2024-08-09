@@ -20,9 +20,14 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
+//chnage preflight
+app.options('*', cors());
+
+
 // CORS configuration
 app.use(cors({
-  origin: ["https://twitter-clone-frontend-roan.vercel.app"],
+  // origin: ["https://twitter-clone-frontend-roan.vercel.app"],
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
