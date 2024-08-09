@@ -10,6 +10,7 @@ export const createPost = async (req, res) => {
 		let { img } = req.body;
 		const userId = req.user._id.toString();
 
+		
 		const user = await User.findById(userId);
 		if (!user) return res.status(404).json({ message: "User not found" });
 
@@ -18,8 +19,22 @@ export const createPost = async (req, res) => {
 		}
 
 		if (img) {
-			const uploadedResponse = await cloudinary.uploader.upload(img);
-			img = uploadedResponse.secure_url;
+			// const uploadedResponse = await cloudinary.uploader.upload(img);
+			// img = uploadedResponse.secure_url;
+
+			console.log('Image Base64:', img.substring(0, 100)); // Log part of the Base64 string
+			try {
+			  const base64Data = img.replace(/^data:image\/\w+;base64,/, '');
+			  console.log('Base64 Data Length:', base64Data.length); // Check length of Base64 data
+		  
+			  const uploadedResponse = await cloudinary.uploader.upload(`data:image/png;base64,${base64Data}`);
+			  console.log('Uploaded Response:', uploadedResponse);
+		  
+			  img = uploadedResponse.secure_url;
+			} catch (uploadError) {
+			  console.error("Cloudinary upload error:", uploadError);
+			  return res.status(500).json({ error: "Error uploading image to Cloudinary" });
+			}
 		}
 
 		const newPost = new Post({
