@@ -13,10 +13,10 @@ import { Toaster } from 'react-hot-toast'
 import { useQuery } from "@tanstack/react-query"
 import LoadingSpinner from './components/common/LoadingSpinner'
 import { Navigate } from 'react-router-dom'
-import 'axios' from 'axios'
+import axios from 'axios';
 
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true;
 function App() {
   const {data:authUser, isLoading, error, isError} = useQuery({
     queryKey: ['authUser'],
