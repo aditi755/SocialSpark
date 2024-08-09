@@ -21,11 +21,11 @@ const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
 // CORS configuration
-// app.use(cors({
-//   origin: ["https://twitter-clone-frontend-roan.vercel.app"],
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   credentials: true
-// }));
+app.use(cors({
+  origin: ["https://twitter-clone-frontend-roan.vercel.app"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 // Cloudinary configuration
 cloudinary.config({

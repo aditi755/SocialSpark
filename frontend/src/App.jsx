@@ -18,7 +18,7 @@ function App() {
     queryKey: ['authUser'],
     queryFn: async () => {
       try{
-        const res = await fetch("/api/auth/me");
+        const res = await fetch("https://twitter-clone-liard-three.vercel.app/api/auth/me"); //change
         const data = await res.json();
         if(data.error) return null;  //fix
         if(!res.ok){
