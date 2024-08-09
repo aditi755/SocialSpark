@@ -22,7 +22,7 @@ function App() {
     queryKey: ['authUser'],
     queryFn: async () => {
       try{
-        const res = await fetch("/api/auth/me"); //change
+        const res = await fetch("/auth/me"); //change
         const data = await res.json();
         if(data.error) return null;  //fix
         if(!res.ok){
