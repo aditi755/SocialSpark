@@ -19,7 +19,10 @@ This project is a Twitter clone built using the MERN stack (MongoDB, Express, Re
 - **React**: Frontend library to build the user interface.
 - **Node.js**: JavaScript runtime for the backend.
 - **JWT**: JSON Web Tokens for securing user authentication and managing sessions.
-- **React Query**: For managing server state and data fetching in the frontend.
+ **React Query**: For managing server state and data fetching in the frontend.
 
  ## Demo
  
+![Screenshot (109)](https://github.com/user-attachments/assets/ee076848-2794-4e8f-8a95-9f35d31e54b3)
+
+![Screenshot (110)](https://github.com/user-attachments/assets/37e644d6-1686-42fa-9ce4-a3348fbad901)
