@@ -13,12 +13,16 @@ import { Toaster } from 'react-hot-toast'
 import { useQuery } from "@tanstack/react-query"
 import LoadingSpinner from './components/common/LoadingSpinner'
 import { Navigate } from 'react-router-dom'
+import 'axios' from 'axios'
+
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
+axios.defaults.withCredentials = true
 function App() {
   const {data:authUser, isLoading, error, isError} = useQuery({
     queryKey: ['authUser'],
     queryFn: async () => {
       try{
-        const res = await fetch("https://twitter-clone-liard-three.vercel.app/api/auth/me"); //change
+        const res = await fetch("/api/auth/me"); //change
         const data = await res.json();
         if(data.error) return null;  //fix
         if(!res.ok){

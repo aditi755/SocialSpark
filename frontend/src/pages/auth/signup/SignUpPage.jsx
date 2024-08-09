@@ -21,7 +21,7 @@ const SignUpPage = () => {
 		mutationFn: async ({email, username, fullName, password}) => {
 			try{
 				//https://twitter-clone-liard-three.vercel.app/api/auth/me
-				const res = await fetch("https://twitter-clone-liard-three.vercel.app/api/auth/signup", {  //login the route, /api/api -> 1-> port be 2 => api/auth  -> http:localhost:5000/api/auth/signup  consolelog it 
+				const res = await fetch("/api/auth/signup", {  //login the route, /api/api -> 1-> port be 2 => api/auth  -> http:localhost:5000/api/auth/signup  consolelog it 
 					method: "POST", 
 					headers: {
 						"Content-Type" : "application/json"
