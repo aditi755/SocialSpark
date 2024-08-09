@@ -23,7 +23,7 @@ function App() {
     queryFn: async () => {
       try{
         console.log(axios.defaults.baseURL);
-        const res = await fetch("/api/auth/me"); //change
+        const res = await fetch("/auth/me"); //change
         console.log(axios.defaults.baseURL);
         const data = await res.json();
         if(data.error) return null;  //fix
