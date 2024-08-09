@@ -22,7 +22,9 @@ function App() {
     queryKey: ['authUser'],
     queryFn: async () => {
       try{
-        const res = await fetch("/auth/me"); //change
+        console.log(axios.defaults.baseURL);
+        const res = await fetch("/api/auth/me"); //change
+        console.log(axios.defaults.baseURL);
         const data = await res.json();
         if(data.error) return null;  //fix
         if(!res.ok){
